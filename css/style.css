@@ -1,0 +1,15 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+/* canvas style */
+.game{
+    height: auto;
+    display: flex;
+    justify-content: center;
+}
+canvas{
+    /* border: 2px solid red; */
+    background-image: url("../img/bg_space_seamless_1.png");
+}
