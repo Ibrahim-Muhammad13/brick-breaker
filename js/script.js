@@ -79,7 +79,7 @@ drawBricks(Brick3.x,Brick3.y,Brick3.BricksWidth,Brick3.BricksHeight);
 //Game Status Bar
 
 function Score() {
-  ctx.font = "1.5rem 'MatchupPro', sans-serif";
+  ctx.font = "1.5rem MatchupPro, sans-serif";
   ctx.fillStyle = "#0095DD";
   ctx.fillText(`Score: 100`, 35, 25);
 }
@@ -87,7 +87,7 @@ function Score() {
 Score()
 
 function level() {
-  ctx.font = "1.5rem 'MatchupPro', sans-serif";
+  ctx.font = "1.5rem MatchupPro, sans-serif";
   ctx.fillStyle = "#0095DD";
   ctx.fillText(`Level: 3`, (canvasWidth/2), 25);
 }

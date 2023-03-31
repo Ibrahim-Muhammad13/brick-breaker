@@ -10,6 +10,12 @@
 }
 
 
+p {
+    /* font-family: 'VT323', monospace; */
+    font-family: 'MatchupPro', sans-serif;
+}
+
+
 /* canvas style */
 .game{
     height: auto;
