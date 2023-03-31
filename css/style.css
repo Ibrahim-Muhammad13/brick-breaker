@@ -9,10 +9,6 @@
     box-sizing: border-box;
 }
 
-p {
-    /* font-family: 'VT323', monospace; */
-    font-family: 'MatchupPro', sans-serif;
-}
 
 /* canvas style */
 .game{
@@ -24,4 +20,3 @@ canvas{
     /* border: 2px solid red; */
     background-image: url("../img/bg_space_seamless_1.png");
 }
-/*     font-family: 'Ndot-55', 'NType82Mono' !important; */
