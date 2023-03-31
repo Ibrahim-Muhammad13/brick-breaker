@@ -49,6 +49,34 @@ drawBall();
 
 // create Bricks
 const Brick1 = {
+  BricksWidth :150,
+  BricksHeight :50,
+  x : paddleX,
+  y : 200,  
+}
+const Brick2 = {
+  BricksWidth :150,
+  BricksHeight :50,
+  x : paddleX- 300,
+  y : 200,  
+}
+const Brick3 = {
+  BricksWidth :150,
+  BricksHeight :50,
+  x : paddleX+ 300,
+  y : 200,  
+}
+// draw the Bricks
+function drawBricks(x,y,width,height){
+  ctx.beginPath();
+  ctx.fillStyle= "#0095DD";
+  ctx.fillRect(x,y,width,height);
+  ctx.fill();
+  ctx.closePath();
+
+
+// create Bricks
+const Brick1 = {
     BricksWidth :150,
     BricksHeight :50,
     x : paddleX,
@@ -73,8 +101,41 @@ function drawBricks(x,y,width,height){
     ctx.fillRect(x,y,width,height);
     ctx.fill();
     ctx.closePath();
+
 }
 drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
 drawBricks(Brick2.x,Brick2.y,Brick2.BricksWidth,Brick2.BricksHeight);
 drawBricks(Brick3.x,Brick3.y,Brick3.BricksWidth,Brick3.BricksHeight);
 
+
+//Game Status Bar
+
+function Score() {
+  ctx.font = "1.5rem MatchupPro, sans-serif";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText(`Score: 100`, 35, 25);
+}
+
+Score()
+
+function level() {
+  ctx.font = "1.5rem MatchupPro, sans-serif";
+  ctx.fillStyle = "#0095DD";
+  ctx.fillText(`Level: 3`, (canvasWidth/2), 25);
+}
+level()
+
+
+
+function live() {
+  const img = new Image();
+  img.src = 'img/heart.png';
+  img.onload = () => {
+    ctx.drawImage(img, canvasWidth - 75, 10, 25, 25);
+    ctx.drawImage(img, canvasWidth - 110, 10, 25, 25);
+    ctx.drawImage(img, canvasWidth - 145, 10, 25, 25);
+    
+  }
+  
+}
+live()
