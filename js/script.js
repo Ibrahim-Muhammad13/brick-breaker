@@ -91,17 +91,9 @@ function level() {
   ctx.fillStyle = "#0095DD";
   ctx.fillText(`Level: 3`, (canvasWidth/2), 25);
 }
-
 level()
 
 
-
-/* function live() {
-  const LEVEL_IMG = new Image();
-  LEVEL_IMG.src = "img/heart.png";
-  ctx.fillText(`Level: 3`, canvasWidth-100, 25);
-  ctx.drawImage(LEVEL_IMG, 1200, 25, width = 25, height = 25);
-} */
 
 function live() {
   const img = new Image();
@@ -114,6 +106,4 @@ function live() {
   }
   
 }
-
-
 live()
