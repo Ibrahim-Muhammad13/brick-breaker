@@ -9,6 +9,7 @@ const paddleWidth=150;
 const paddleHeight=10;
 const paddleMarginButton=100;
 
+
 let paddleX = canvasWidth/2 - paddleWidth/2;
 let paddleY = canvasHeight-paddleHeight-paddleMarginButton;
 //draw the paddle
@@ -44,4 +45,36 @@ function drawBall(){
     ctx.closePath();
 }
 drawBall();
+
+
+// create Bricks
+const Brick1 = {
+    BricksWidth :150,
+    BricksHeight :50,
+    x : paddleX,
+    y : 200,  
+}
+const Brick2 = {
+    BricksWidth :150,
+    BricksHeight :50,
+    x : paddleX- 300,
+    y : 200,  
+}
+const Brick3 = {
+    BricksWidth :150,
+    BricksHeight :50,
+    x : paddleX+ 300,
+    y : 200,  
+}
+// draw the Bricks
+function drawBricks(x,y,width,height){
+    ctx.beginPath();
+    ctx.fillStyle= "#0095DD";
+    ctx.fillRect(x,y,width,height);
+    ctx.fill();
+    ctx.closePath();
+}
+drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
+drawBricks(Brick2.x,Brick2.y,Brick2.BricksWidth,Brick2.BricksHeight);
+drawBricks(Brick3.x,Brick3.y,Brick3.BricksWidth,Brick3.BricksHeight);
 
