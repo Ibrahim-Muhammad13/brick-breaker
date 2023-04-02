@@ -46,13 +46,18 @@ function drawBall(){
 }
 //drawBall();
 
-
-// create Bricks
-const Brick1 = {
-  BricksWidth :150,
-  BricksHeight :50,
-  x : paddleX,
-  y : 200,  
+//bricks Shape
+const brick={
+    num_row : 3,
+    num_column : 4,
+    Brick_Width :150,
+    Brick_Height :50,
+    space_left :50,
+    space_top : 30,
+    margin_top :80 ,
+    margin_left :200 ,
+    color :"#0095DD"
+    
 }
 const Brick2 = {
   BricksWidth :150,
@@ -74,10 +79,35 @@ function drawBricks(x,y,width,height){
   ctx.fill();
   ctx.closePath();
 
+
+// create Bricks
+const Brick1 = {
+    BricksWidth :150,
+    BricksHeight :50,
+    x : paddleX,
+    y : 200,  
 }
-drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
-drawBricks(Brick2.x,Brick2.y,Brick2.BricksWidth,Brick2.BricksHeight);
-drawBricks(Brick3.x,Brick3.y,Brick3.BricksWidth,Brick3.BricksHeight);
+const Brick2 = {
+    BricksWidth :150,
+    BricksHeight :50,
+    x : paddleX- 300,
+    y : 200,  
+}
+const Brick3 = {
+    BricksWidth :150,
+    BricksHeight :50,
+    x : paddleX+ 300,
+    y : 200,  
+}
+// draw the Bricks
+function drawBricks(x,y,width,height){
+    ctx.beginPath();
+    ctx.fillStyle= "#0095DD";
+    ctx.fillRect(x,y,width,height);
+    ctx.fill();
+    ctx.closePath();
+
+}
 
 
 //Game Status Bar
@@ -100,61 +130,10 @@ function live() {
     ctx.drawImage(img, canvasWidth - 75, 10, 25, 25);
     ctx.drawImage(img, canvasWidth - 110, 10, 25, 25);
     ctx.drawImage(img, canvasWidth - 145, 10, 25, 25);
+    
+  }
+  
 }
-//live()
+live()
 
-//move the paddle
-let moveRight=false;
-let moveLeft=false;
-
-document.addEventListener("keydown",keyDownHandller,false);
-document.addEventListener("keyup",keyUpHandler,false);
-
-function keyDownHandller(e){
-    if(e.key=="ArrowRight"){
-        moveRight=true;
-    }else if(e.key=="ArrowLeft"){
-        moveLeft=true;
-    }
-}
-
-function keyUpHandler(e){
-    if(e.key=="ArrowRight"){
-        moveRight=false;
-    }else if(e.key=="ArrowLeft"){
-        moveLeft=false;
-    }
-}
-
-function movePaddle(){
-
-if(moveRight){
-    paddleX+=paddleDX;
-    if(paddleX+paddleWidth>canvasWidth){
-        paddleX=canvasWidth-paddleWidth;
-    }
-}else if(moveLeft){
-    paddleX-=paddleDX;
-    if(paddleX<0){
-        paddleX=0;
-    }
-}
-}
-
-
-function run(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    Score();
-    level();
-    live();
-    drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
-    drawBall();
-    drawPaddle();
-    movePaddle();
-
-
-    requestAnimationFrame(run);
-}
-run();
-
-
+//this aya
