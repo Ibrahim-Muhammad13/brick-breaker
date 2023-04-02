@@ -3,8 +3,8 @@ const canvas =  /** @type {HTMLCanvasElement} */ (document.getElementById('myCan
 const ctx = canvas.getContext('2d');
 const BALL_RADIUS = 8;
 
-const canvasWidth = canvas.width=1500;
-const canvasHeight =canvas.height=900;
+const canvasWidth = canvas.width=window.innerWidth;
+const canvasHeight =canvas.height=window.innerHeight;
 const paddleWidth=150;
 const paddleHeight=10;
 const paddleMarginBottom=100;
@@ -95,7 +95,7 @@ function draw_Bricks(){
 function Score() {
   ctx.font = "1.5rem MatchupPro, sans-serif";
   ctx.fillStyle = "#0095DD";
-  ctx.fillText(`Score: 100`, 35, 25);
+  ctx.fillText(`Score: 100`, canvasWidth/25, 25);
 }
 
 function level() {
