@@ -48,8 +48,8 @@ function drawBall(){
 
 //bricks Shape
 const brick={
-    num_row : 5,
-    num_column : 5,
+    num_row : 3,
+    num_column : 4,
     Brick_Width :150,
     Brick_Height :50,
     space_left :50,
