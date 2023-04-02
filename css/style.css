@@ -1,8 +1,21 @@
+@font-face {
+    font-family: MatchupPro;
+    src: url(MatchupPro.woff);
+  }
+
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
+
+
+p {
+    /* font-family: 'VT323', monospace; */
+    font-family: 'MatchupPro', sans-serif;
+}
+
+
 /* canvas style */
 .game{
     height: auto;

@@ -148,6 +148,7 @@ if(moveRight){
     if(paddleX<0){
         paddleX=0;
     }
+
 }
 }
 
@@ -167,5 +168,6 @@ function run(){
     requestAnimationFrame(run);
 }
 run();
+
 
 
