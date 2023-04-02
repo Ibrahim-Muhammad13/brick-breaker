@@ -59,54 +59,34 @@ const brick={
     color :"#0095DD"
     
 }
-const Brick2 = {
-  BricksWidth :150,
-  BricksHeight :50,
-  x : paddleX- 300,
-  y : 200,  
+// create the Bricks
+let bricks=[];
+function create_Bricks(){
+  for(let rows = 0 ; rows < brick.num_row ; rows++){
+        bricks[rows]=[];
+        for(let column = 0; column < brick.num_column; column++){
+            bricks[rows][column]={
+                x: column * (brick.space_left +brick.Brick_Width)+brick.space_left+brick.margin_left,
+                y: rows * (brick.space_top + brick.Brick_Height) + brick.space_top +brick.margin_top,
+                status: 1
+            }
+        }
+    }
 }
-const Brick3 = {
-  BricksWidth :150,
-  BricksHeight :50,
-  x : paddleX+ 300,
-  y : 200,  
-}
-// draw the Bricks
-function drawBricks(x,y,width,height){
-  ctx.beginPath();
-  ctx.fillStyle= "#0095DD";
-  ctx.fillRect(x,y,width,height);
-  ctx.fill();
-  ctx.closePath();
-
-
-// create Bricks
-const Brick1 = {
-    BricksWidth :150,
-    BricksHeight :50,
-    x : paddleX,
-    y : 200,  
-}
-const Brick2 = {
-    BricksWidth :150,
-    BricksHeight :50,
-    x : paddleX- 300,
-    y : 200,  
-}
-const Brick3 = {
-    BricksWidth :150,
-    BricksHeight :50,
-    x : paddleX+ 300,
-    y : 200,  
-}
-// draw the Bricks
-function drawBricks(x,y,width,height){
-    ctx.beginPath();
-    ctx.fillStyle= "#0095DD";
-    ctx.fillRect(x,y,width,height);
-    ctx.fill();
-    ctx.closePath();
-
+//Draw Bricks
+function draw_Bricks(){
+    for(let rows = 0 ; rows < brick.num_row ; rows++){
+        for(let column = 0; column < brick.num_column; column++){
+            let b=bricks[rows][column];
+            if(b.status ==1){
+                ctx.beginPath();
+                ctx.fillStyle = brick.color;
+                ctx.fillRect(b.x, b.y ,brick.Brick_Width, brick.Brick_Height)
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }   
 }
 
 
@@ -115,7 +95,7 @@ function drawBricks(x,y,width,height){
 function Score() {
   ctx.font = "1.5rem MatchupPro, sans-serif";
   ctx.fillStyle = "#0095DD";
-  ctx.fillText(`Score: 100`, 35, 25);
+  ctx.fillText(`Score: 100`, canvasWidth/25, 25);
 }
 
 function level() {
@@ -130,10 +110,63 @@ function live() {
     ctx.drawImage(img, canvasWidth - 75, 10, 25, 25);
     ctx.drawImage(img, canvasWidth - 110, 10, 25, 25);
     ctx.drawImage(img, canvasWidth - 145, 10, 25, 25);
-    
-  }
-  
 }
-live()
+//live()
+
+//move the paddle
+let moveRight=false;
+let moveLeft=false;
+
+document.addEventListener("keydown",keyDownHandller,false);
+document.addEventListener("keyup",keyUpHandler,false);
+
+function keyDownHandller(e){
+    if(e.key=="ArrowRight"){
+        moveRight=true;
+    }else if(e.key=="ArrowLeft"){
+        moveLeft=true;
+    }
+}
+
+function keyUpHandler(e){
+    if(e.key=="ArrowRight"){
+        moveRight=false;
+    }else if(e.key=="ArrowLeft"){
+        moveLeft=false;
+    }
+}
+
+function movePaddle(){
+
+if(moveRight){
+    paddleX+=paddleDX;
+    if(paddleX+paddleWidth>canvasWidth){
+        paddleX=canvasWidth-paddleWidth;
+    }
+}else if(moveLeft){
+    paddleX-=paddleDX;
+    if(paddleX<0){
+        paddleX=0;
+    }
+}
+}
+
+
+function run(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    Score();
+    level();
+    live();
+    // drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
+    drawBall();
+    drawPaddle();
+    movePaddle();
+    create_Bricks();
+    draw_Bricks();
+
+    requestAnimationFrame(run);
+}
+run();
+
 
 //this aya
