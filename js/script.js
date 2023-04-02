@@ -3,15 +3,16 @@ const canvas =  /** @type {HTMLCanvasElement} */ (document.getElementById('myCan
 const ctx = canvas.getContext('2d');
 const BALL_RADIUS = 8;
 
-const canvasWidth = canvas.width=1500;
-const canvasHeight =canvas.height=900;
+const canvasWidth = canvas.width=window.innerWidth;
+const canvasHeight =canvas.height=window.innerHeight;
 const paddleWidth=150;
 const paddleHeight=10;
-const paddleMarginButton=100;
+const paddleMarginBottom=100;
 
 
 let paddleX = canvasWidth/2 - paddleWidth/2;
-let paddleY = canvasHeight-paddleHeight-paddleMarginButton;
+let paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
+let paddleDX=10;
 //draw the paddle
 function drawPaddle(){
     ctx.beginPath();
@@ -20,7 +21,6 @@ function drawPaddle(){
     ctx.fill();
     ctx.closePath();
 }
-drawPaddle();
 
 //Create the ball
 const ball = {
@@ -44,7 +44,7 @@ function drawBall(){
     
     ctx.closePath();
 }
-drawBall();
+//drawBall();
 
 
 // create Bricks
@@ -74,34 +74,6 @@ function drawBricks(x,y,width,height){
   ctx.fill();
   ctx.closePath();
 
-
-// create Bricks
-const Brick1 = {
-    BricksWidth :150,
-    BricksHeight :50,
-    x : paddleX,
-    y : 200,  
-}
-const Brick2 = {
-    BricksWidth :150,
-    BricksHeight :50,
-    x : paddleX- 300,
-    y : 200,  
-}
-const Brick3 = {
-    BricksWidth :150,
-    BricksHeight :50,
-    x : paddleX+ 300,
-    y : 200,  
-}
-// draw the Bricks
-function drawBricks(x,y,width,height){
-    ctx.beginPath();
-    ctx.fillStyle= "#0095DD";
-    ctx.fillRect(x,y,width,height);
-    ctx.fill();
-    ctx.closePath();
-
 }
 drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
 drawBricks(Brick2.x,Brick2.y,Brick2.BricksWidth,Brick2.BricksHeight);
@@ -116,26 +88,73 @@ function Score() {
   ctx.fillText(`Score: 100`, 35, 25);
 }
 
-Score()
-
 function level() {
   ctx.font = "1.5rem MatchupPro, sans-serif";
   ctx.fillStyle = "#0095DD";
   ctx.fillText(`Level: 3`, (canvasWidth/2), 25);
 }
-level()
-
-
 
 function live() {
   const img = new Image();
   img.src = 'img/heart.png';
-  img.onload = () => {
     ctx.drawImage(img, canvasWidth - 75, 10, 25, 25);
     ctx.drawImage(img, canvasWidth - 110, 10, 25, 25);
     ctx.drawImage(img, canvasWidth - 145, 10, 25, 25);
-    
-  }
-  
 }
-live()
+//live()
+
+//move the paddle
+let moveRight=false;
+let moveLeft=false;
+
+document.addEventListener("keydown",keyDownHandller,false);
+document.addEventListener("keyup",keyUpHandler,false);
+
+function keyDownHandller(e){
+    if(e.key=="ArrowRight"){
+        moveRight=true;
+    }else if(e.key=="ArrowLeft"){
+        moveLeft=true;
+    }
+}
+
+function keyUpHandler(e){
+    if(e.key=="ArrowRight"){
+        moveRight=false;
+    }else if(e.key=="ArrowLeft"){
+        moveLeft=false;
+    }
+}
+
+function movePaddle(){
+
+if(moveRight){
+    paddleX+=paddleDX;
+    if(paddleX+paddleWidth>canvasWidth){
+        paddleX=canvasWidth-paddleWidth;
+    }
+}else if(moveLeft){
+    paddleX-=paddleDX;
+    if(paddleX<0){
+        paddleX=0;
+    }
+}
+}
+
+
+function run(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    Score();
+    level();
+    live();
+    drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
+    drawBall();
+    drawPaddle();
+    movePaddle();
+
+
+    requestAnimationFrame(run);
+}
+run();
+
+
