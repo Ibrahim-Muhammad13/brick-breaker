@@ -46,38 +46,48 @@ function drawBall(){
 }
 //drawBall();
 
-
-// create Bricks
-const Brick1 = {
-  BricksWidth :150,
-  BricksHeight :50,
-  x : paddleX,
-  y : 200,  
+//bricks Shape
+const brick={
+    num_row : 3,
+    num_column : 4,
+    Brick_Width :150,
+    Brick_Height :50,
+    space_left :50,
+    space_top : 30,
+    margin_top :80 ,
+    margin_left :200 ,
+    color :"#0095DD"
+    
 }
-const Brick2 = {
-  BricksWidth :150,
-  BricksHeight :50,
-  x : paddleX- 300,
-  y : 200,  
+// create the Bricks
+let bricks=[];
+function create_Bricks(){
+  for(let rows = 0 ; rows < brick.num_row ; rows++){
+        bricks[rows]=[];
+        for(let column = 0; column < brick.num_column; column++){
+            bricks[rows][column]={
+                x: column * (brick.space_left +brick.Brick_Width)+brick.space_left+brick.margin_left,
+                y: rows * (brick.space_top + brick.Brick_Height) + brick.space_top +brick.margin_top,
+                status: 1
+            }
+        }
+    }
 }
-const Brick3 = {
-  BricksWidth :150,
-  BricksHeight :50,
-  x : paddleX+ 300,
-  y : 200,  
+//Draw Bricks
+function draw_Bricks(){
+    for(let rows = 0 ; rows < brick.num_row ; rows++){
+        for(let column = 0; column < brick.num_column; column++){
+            let b=bricks[rows][column];
+            if(b.status ==1){
+                ctx.beginPath();
+                ctx.fillStyle = brick.color;
+                ctx.fillRect(b.x, b.y ,brick.Brick_Width, brick.Brick_Height)
+                ctx.fill();
+                ctx.closePath();
+            }
+        }
+    }   
 }
-// draw the Bricks
-function drawBricks(x,y,width,height){
-  ctx.beginPath();
-  ctx.fillStyle= "#0095DD";
-  ctx.fillRect(x,y,width,height);
-  ctx.fill();
-  ctx.closePath();
-
-}
-drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
-drawBricks(Brick2.x,Brick2.y,Brick2.BricksWidth,Brick2.BricksHeight);
-drawBricks(Brick3.x,Brick3.y,Brick3.BricksWidth,Brick3.BricksHeight);
 
 
 //Game Status Bar
@@ -147,11 +157,12 @@ function run(){
     Score();
     level();
     live();
-    drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
+    // drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
     drawBall();
     drawPaddle();
     movePaddle();
-
+    create_Bricks();
+    draw_Bricks();
 
     requestAnimationFrame(run);
 }
