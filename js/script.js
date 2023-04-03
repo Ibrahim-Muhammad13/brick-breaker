@@ -159,14 +159,62 @@ function run(){
     live();
     // drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
     drawBall();
+    
     drawPaddle();
     movePaddle();
+    moveBall();
+    ballWallCollision();
+
     create_Bricks();
     draw_Bricks();
 
     requestAnimationFrame(run);
 }
+
 run();
 
 
-//this aya
+
+////////move the ball
+function moveBall(){
+    ball.x += ball.dx;
+    ball.y += ball.dy;
+    dx = 3,
+    dy = -3
+    
+}
+////////Ball and Wall Collision detection
+function ballWallCollision(){
+    if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0 ){
+        ball.dx = - ball.dx;
+    }
+    if(ball.y - ball.radius < 0 ){
+        ball.dy = -ball.dy;
+        
+    }
+    if(ball.y + ball.radius > canvas.height){
+        //dy = -dy;
+        
+        resetBall();
+    }
+}
+
+
+////reset the ball
+function resetBall(){                           
+    ball.x = canvas.width/2;
+    ball.y = paddleY - BALL_RADIUS;
+    speed = 4,
+    ball.dx = 3 *(Math.random()* -1);
+    ball.dy = -3;
+} 
+//draw function
+
+
+//update game function
+function update(){
+    //movePaddle();
+    moveBall();
+    ballWallCollision();
+}
+//update();
