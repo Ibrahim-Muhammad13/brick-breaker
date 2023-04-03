@@ -189,7 +189,7 @@ function resetBall(){
 //hit ball with paddle
 
 function paddleBallCollision(){
-    if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&paddleY<paddleY+paddleHeight&&ball.y>paddleY){
+    if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&ball.y<paddleY+paddleHeight&&ball.y>paddleY){
         ball.dx = -ball.speed;
         ball.dy= -ball.dy; 
     }
