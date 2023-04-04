@@ -104,13 +104,24 @@ function level() {
   ctx.fillText(`Level: 3`, (canvasWidth/2), 25);
 }
 
+let life = 3;
 function live() {
+    let imgg = 75;    
   const img = new Image();
+  
   img.src = 'img/heart.png';
-    ctx.drawImage(img, canvasWidth - 75, 10, 25, 25);
-    ctx.drawImage(img, canvasWidth - 110, 10, 25, 25);
-    ctx.drawImage(img, canvasWidth - 145, 10, 25, 25);
+  
+  for(let i=0 ;i<life;i++){
+    
+    ctx.drawImage(img, canvasWidth - imgg, 10, 25, 25);
+    imgg +=35 ;
+
 }
+}
+//    ctx.drawImage(img, canvasWidth - 75, 10, 25, 25);
+//    ctx.drawImage(img, canvasWidth - 110, 10, 25, 25);
+//    ctx.drawImage(img, canvasWidth - 145, 10, 25, 25);
+//}
 //live()
 
 //move the paddle
@@ -222,7 +233,8 @@ function ballWallCollision(){
     }
     if(ball.y + ball.radius > canvas.height){
         //dy = -dy;
-        
+    life--;
+    live();
         resetBall();
     }
 }
