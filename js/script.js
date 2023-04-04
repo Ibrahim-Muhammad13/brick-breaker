@@ -27,8 +27,8 @@ const ball = {
     x : canvasWidth/2,
     y : paddleY - BALL_RADIUS,
     radius : BALL_RADIUS,
-    speed : 4,
-    dx : 3,
+    speed : 7,
+    dx : 3*(Math.random()*2 -1),
     dy : -3
     
 }
@@ -154,6 +154,7 @@ if(moveRight){
 
 //display txt , img
 function showGameStats(text, textOnX, textOnY) {
+
     // draw text 
      ctx.fillStyle = "red";
     ctx.font = "120px Germania One";
@@ -173,27 +174,7 @@ function gameOver() {
 }
 
 
-function run(){
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    Score();
-    level();
-    live();
-    // drawBricks(Brick1.x,Brick1.y,Brick1.BricksWidth,Brick1.BricksHeight);
-    drawBall();
-    
-    drawPaddle();
-    movePaddle();
-    moveBall();
-    ballWallCollision();
 
-    create_Bricks();
-    draw_Bricks();
-    gameOver();
-
-    requestAnimationFrame(run);
-}
-
-run();
 
 
 
@@ -235,16 +216,36 @@ function resetBall(){
     ball.x = canvas.width/2;
     ball.y = paddleY - BALL_RADIUS;
     speed = 4,
-    ball.dx = 3 *(Math.random()* -1);
+    ball.dx = 3 *(Math.random()*2 -1);
     ball.dy = -3;
 } 
-//draw function
+
+//hit ball with paddle
+
+function paddleBallCollision(){
+    if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&ball.y<paddleY+paddleHeight&&ball.y>paddleY){
+        ball.dx = -ball.speed;
+        ball.dy= -ball.dy; 
+    }
+}
 
 
-//update game function
-function update(){
-    //movePaddle();
+//keep this function at the bottom
+function run(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    Score();
+    level();
+    live();
+    drawBall();
+    drawPaddle();
+    movePaddle();
     moveBall();
     ballWallCollision();
+    create_Bricks();
+    draw_Bricks();
+   // gameOver();
+    paddleBallCollision();
+    requestAnimationFrame(run);
 }
-//update();
+
+run();
