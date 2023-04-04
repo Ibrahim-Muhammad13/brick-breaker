@@ -48,12 +48,12 @@ function drawBall(){
 
 //bricks Shape
 const brick={
-    num_row : 3,
+    num_row : 4,
     num_column : 4,
     Brick_Width :150,
     Brick_Height :50,
-    space_left :50,
-    space_top : 30,
+    space_left :2,
+    space_top : 2,
     margin_top :80 ,
     margin_left :200 ,
     color :"#0095DD"
@@ -66,8 +66,8 @@ function create_Bricks(){
         bricks[rows]=[];
         for(let column = 0; column < brick.num_column; column++){
             bricks[rows][column]={
-                x: column * (brick.space_left +brick.Brick_Width)+brick.space_left+brick.margin_left,
-                y: rows * (brick.space_top + brick.Brick_Height) + brick.space_top +brick.margin_top,
+                x: (column * (brick.space_left +brick.Brick_Width)+brick.space_left+brick.margin_left)/.5,
+                y: (rows * (brick.space_top + brick.Brick_Height) + brick.space_top +brick.margin_top)/.5,
                 status: 1
             }
         }
@@ -152,6 +152,27 @@ if(moveRight){
 }
 
 
+//display txt , img
+function showGameStats(text, textOnX, textOnY) {
+    // draw text 
+     ctx.fillStyle = "red";
+    ctx.font = "120px Germania One";
+     ctx.fillText(text, textOnX, textOnY);
+
+    //  image
+    const game_over_img = new Image();
+    game_over_img.src = 'img/game-over3.png';
+    ctx.drawImage(game_over_img, canvasWidth /3, canvasHeight/3, 700, 400);
+
+    //button
+    
+}
+function gameOver() {
+         showGameStats(`GAME OVER`, (canvasWidth/3), canvasHeight/4);
+         stopBall();
+}
+
+
 function run(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     Score();
@@ -167,6 +188,7 @@ function run(){
 
     create_Bricks();
     draw_Bricks();
+    gameOver();
 
     requestAnimationFrame(run);
 }
@@ -181,6 +203,14 @@ function moveBall(){
     ball.y += ball.dy;
     dx = 3,
     dy = -3
+    
+}
+function stopBall(){
+     ball.x = canvas.width/2;
+    ball.y = paddleY - BALL_RADIUS;
+    speed = 0,
+    ball.dx = 3 *(Math.random()* -1);
+    ball.dy = -3;
     
 }
 ////////Ball and Wall Collision detection
