@@ -161,9 +161,9 @@ function showGameStats(text, textOnX, textOnY) {
      ctx.fillText(text, textOnX, textOnY);
 
     //  image
-    const game_over_img = new Image();
-    game_over_img.src = 'img/game-over3.png';
-    ctx.drawImage(game_over_img, canvasWidth /3, canvasHeight/3, 700, 400);
+    // const game_over_img = new Image();
+    // game_over_img.src = 'img/game-over3.png';
+    // ctx.drawImage(game_over_img, canvasWidth /3, canvasHeight/3, 700, 400);
 
     //button
     
@@ -171,11 +171,28 @@ function showGameStats(text, textOnX, textOnY) {
 function gameOver() {
          showGameStats(`GAME OVER`, (canvasWidth/3), canvasHeight/4);
          stopBall();
+          playAgain();
+        
+
 }
 
 
 
 
+
+function playAgain(){
+    ctx.beginPath();
+    ctx.fillStyle= "rgba(0,225,225,0.5)";
+    ctx.fillRect(1100,700,300,150);
+    ctx.fill();
+    ctx.closePath();
+    ctx.font = '40pt Kremlin Pro Web';
+    ctx.fillStyle = 'red';
+    ctx.fillText('Play Again', 1140,785);
+   document.addEventListener("click", resetBall);
+
+
+}
 
 
 ////////move the ball
@@ -243,7 +260,8 @@ function run(){
     ballWallCollision();
     create_Bricks();
     draw_Bricks();
-   // gameOver();
+   gameOver();
+
     paddleBallCollision();
     requestAnimationFrame(run);
 }
