@@ -12,7 +12,7 @@ const paddleMarginBottom=100;
 
 let paddleX = canvasWidth/2 - paddleWidth/2;
 let paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
-let paddleDX=10;
+let paddleDX=15;
 //draw the paddle
 function drawPaddle(){
     ctx.beginPath();
@@ -21,17 +21,17 @@ function drawPaddle(){
     ctx.fill();
     ctx.closePath();
 }
-
+let ballSpeed =15;
 //Create the ball
 const ball = {
     x : canvasWidth/2,
     y : paddleY - BALL_RADIUS,
     radius : BALL_RADIUS,
-    speed : 7,
-    dx : 3*(Math.random()*2 -1),
-    dy : -3
+    dx : ballSpeed*(Math.random()*2 -1),
+    dy : -ballSpeed
     
 }
+console.log(ball.dx)
 //Draw the ball
 function drawBall(){
     ctx.beginPath();
@@ -164,31 +164,22 @@ if(moveRight){
 }
 
 
-//display txt , img
-function showGameStats(text, textOnX, textOnY) {
 
-    // draw text 
-     ctx.fillStyle = "red";
-    ctx.font = "120px Germania One";
-     ctx.fillText(text, textOnX, textOnY);
-
-    
-    
-}
-function gameOver() {
-         showGameStats(`GAME OVER`, (canvasWidth/3), canvasHeight/4);
-         stopBall();
-           playAgain();
-
-         //image
-    const game_over_img = new Image();
-    game_over_img.src = 'img/over.png';
-    ctx.drawImage(game_over_img, canvasWidth /3, canvasHeight/3.5, 700, 300);
-
+let gameover= false;
+function showGameOVer(){
+    document.getElementById('gameover').style.display='block';
+    document.getElementById('lost').style.display='block';
+    document.getElementById('restart').addEventListener('click',function(){
+        location.reload();
+    })
 
 }
-
-
+function gameOver(){
+    if(life==0){
+       showGameOVer();
+        gameover=true;
+    }
+}
 
 
 
@@ -218,8 +209,8 @@ function stopBall(){
      ball.x = canvas.width/2;
     ball.y = paddleY - BALL_RADIUS;
     speed = 0,
-    ball.dx = 3 *(Math.random()* -1);
-    ball.dy = -3;
+    ball.dx = ballSpeed *(Math.random()*2 -1);
+    ball.dy = -ballSpeed;
     
 }
 ////////Ball and Wall Collision detection
@@ -236,6 +227,7 @@ function ballWallCollision(){
     life--;
     live();
         resetBall();
+        restPaddle();
     }
 }
 
@@ -245,15 +237,22 @@ function resetBall(){
     ball.x = canvas.width/2;
     ball.y = paddleY - BALL_RADIUS;
     speed = 4,
-    ball.dx = 3 *(Math.random()*2 -1);
-    ball.dy = -3;
+    ball.dx = ballSpeed *(Math.random()*2 -1);
+    ball.dy = -ballSpeed;
 } 
+//rest the paddle
+
+function restPaddle(){
+
+paddleX = canvasWidth/2 - paddleWidth/2;
+paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
+}
 
 //hit ball with paddle
 
 function paddleBallCollision(){
     if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&ball.y<paddleY+paddleHeight&&ball.y>paddleY){
-        ball.dx = -ball.speed;
+        ball.dx = -ballSpeed;
         ball.dy= -ball.dy; 
     }
 }
@@ -272,10 +271,12 @@ function run(){
     ballWallCollision();
     create_Bricks();
     draw_Bricks();
-   gameOver();
-
+    gameOver();
+ 
     paddleBallCollision();
-    requestAnimationFrame(run);
+    if(!gameover){
+        requestAnimationFrame(run);
+    }
 }
 
 run();
