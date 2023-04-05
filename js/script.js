@@ -56,7 +56,8 @@ const brick={
     space_top : 2,
     margin_top :80 ,
     margin_left :200 ,
-    color :"#0095DD"
+     color :"#0095DD"
+ 
     
 }
 // create the Bricks
@@ -171,19 +172,19 @@ function showGameStats(text, textOnX, textOnY) {
     ctx.font = "120px Germania One";
      ctx.fillText(text, textOnX, textOnY);
 
-    //  image
-    // const game_over_img = new Image();
-    // game_over_img.src = 'img/game-over3.png';
-    // ctx.drawImage(game_over_img, canvasWidth /3, canvasHeight/3, 700, 400);
-
-    //button
+    
     
 }
 function gameOver() {
          showGameStats(`GAME OVER`, (canvasWidth/3), canvasHeight/4);
          stopBall();
-          playAgain();
-        
+           playAgain();
+
+         //image
+    const game_over_img = new Image();
+    game_over_img.src = 'img/over.png';
+    ctx.drawImage(game_over_img, canvasWidth /3, canvasHeight/3.5, 700, 300);
+
 
 }
 
@@ -200,8 +201,7 @@ function playAgain(){
     ctx.font = '40pt Kremlin Pro Web';
     ctx.fillStyle = 'red';
     ctx.fillText('Play Again', 1140,785);
-   document.addEventListener("click", resetBall);
-
+    document.addEventListener("click", resetBall());
 
 }
 
