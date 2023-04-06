@@ -89,6 +89,24 @@ function draw_Bricks(){
     }   
 }
 
+// Bricks collision
+
+function bricksCollision() {
+    for(let rows = 0 ; rows < brick.num_row ; rows++){
+        for(let column = 0; column < brick.num_column; column++){
+            let b=bricks[rows][column];
+            if(b.status ==1){
+                if (ball.x + ball.radius > b.x &&
+                    ball.x - ball.radius < b.x + brick.Brick_Width &&
+                    ball.y + ball.radius > b.y &&
+                    ball.y + ball.radius < b.y + brick.Brick_Height){
+                        ball.dy = -ball.dy;
+                        b.status = false;
+                    }
+            }
+        }
+    }
+}
 
 //Game Status Bar
 
@@ -271,6 +289,7 @@ function run(){
     ballWallCollision();
     create_Bricks();
     draw_Bricks();
+    bricksCollision()
     gameOver();
  
     paddleBallCollision();
