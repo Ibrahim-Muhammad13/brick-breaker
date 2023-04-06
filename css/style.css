@@ -25,29 +25,45 @@ p {
 canvas{
     /* border: 2px solid red; */
     background-image: url("../img/bg_space_seamless_1.png");
+    height: 90vh;
+      width: 70vh;
+    margin: auto;
 }
 
 
 #gameover{
     position: absolute;
-    width: 400px;
-    height: 500px;
+    height: 90vh;
+      width: 70vh;
     display: none;
+    background: rgba(23, 32, 119, 0.2); 
+    backdrop-filter: blur(8px);
+   
 }
 
-#lost{
+/* #lost{
     position: absolute;
-    width: 400px;
-    top: 300px;
-    left: 0px;
+    height: 20vh;
+    width: 500vh;    
+    top: 20vh;
+    margin-left: 10vh;
     display: none;
+} */
+p{
+    position: absolute;
+    top: 25vh;
+    margin-left: 15vh;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 8vh;
+    color: red;
 }
 
 #restart{
     position: absolute;
-    top: 650px;
-    left: 0;
-    color: white;
-    font-size: 1.4rem;
-    cursor: pointer;
+    top: 40vh;
+    margin-left: 30vh;
+    height: 10vh;
+    width: 10vh;  
+    border-radius: 100%;
+    /* cursor: pointer; */
 }
