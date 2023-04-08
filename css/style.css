@@ -25,8 +25,8 @@ p {
 canvas{
     /* border: 2px solid red; */
     background-image: url("../img/bg_space_seamless_1.png");
-    height: 90vh;
-      width: 70vh;
+    /* height: 90vh;
+      width: 70vh; */
     margin: auto;
 }
 

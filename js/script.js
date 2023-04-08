@@ -1,12 +1,12 @@
 const canvas =  /** @type {HTMLCanvasElement} */ (document.getElementById('myCanvas'));
 //the HTMLCanvasElement is a type cast to make vscode autocomplete works for canvas..it doesn't affect the code
 const ctx = canvas.getContext('2d');
-const BALL_RADIUS = 30;
+const BALL_RADIUS = 10;
 
 const canvasWidth = canvas.width=window.innerWidth;
 const canvasHeight =canvas.height=window.innerHeight;
-const paddleWidth=400;
-const paddleHeight=30;
+const paddleWidth=300;
+const paddleHeight=20;
 const paddleMarginBottom=100;
 
 
@@ -21,7 +21,7 @@ function drawPaddle(){
     ctx.fill();
     ctx.closePath();
 }
-let ballSpeed =15;
+let ballSpeed =10;
 //Create the ball
 const ball = {
     x : canvasWidth/2,
@@ -31,7 +31,7 @@ const ball = {
     dy : -ballSpeed
     
 }
-console.log(ball.dx)
+
 //Draw the ball
 function drawBall(){
     ctx.beginPath();
@@ -50,12 +50,12 @@ function drawBall(){
 const brick={
     num_row : 5,
     num_column : 5,
-    Brick_Width :500,
-    Brick_Height :50,
+    Brick_Width :250,
+    Brick_Height :30,
     space_left :5,
-    space_top : 2,
+    space_top : 5,
     margin_top :80 ,
-    margin_left :30 ,
+    margin_left :400 ,
      color :"#0095DD"
  
     
