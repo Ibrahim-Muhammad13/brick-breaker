@@ -49,7 +49,7 @@ canvas{
     margin-left: 10vh;
     display: none;
 } */
-p{
+.game-over{
     position: absolute;
     top: 25vh;
     margin-left: 15vh;
@@ -57,7 +57,14 @@ p{
     font-size: 8vh;
     color: red;
 }
-
+.score{
+    position: absolute;
+    top: 50vh;
+    margin-left: 15vh;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 8vh;
+    color: red;
+}
 #restart{
     position: absolute;
     top: 40vh;
