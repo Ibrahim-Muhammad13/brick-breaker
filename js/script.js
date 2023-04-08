@@ -1,12 +1,12 @@
 const canvas =  /** @type {HTMLCanvasElement} */ (document.getElementById('myCanvas'));
 //the HTMLCanvasElement is a type cast to make vscode autocomplete works for canvas..it doesn't affect the code
 const ctx = canvas.getContext('2d');
-const BALL_RADIUS = 8;
+const BALL_RADIUS = 30;
 
 const canvasWidth = canvas.width=window.innerWidth;
 const canvasHeight =canvas.height=window.innerHeight;
-const paddleWidth=150;
-const paddleHeight=10;
+const paddleWidth=400;
+const paddleHeight=30;
 const paddleMarginBottom=100;
 
 
@@ -48,15 +48,16 @@ function drawBall(){
 
 //bricks Shape
 const brick={
-    num_row : 4,
-    num_column : 4,
-    Brick_Width :150,
+    num_row : 5,
+    num_column : 5,
+    Brick_Width :500,
     Brick_Height :50,
-    space_left :2,
+    space_left :5,
     space_top : 2,
     margin_top :80 ,
-    margin_left :200 ,
-    color :"#0095DD"
+    margin_left :30 ,
+     color :"#0095DD"
+ 
     
 }
 // create the Bricks
@@ -66,8 +67,8 @@ function create_Bricks(){
         bricks[rows]=[];
         for(let column = 0; column < brick.num_column; column++){
             bricks[rows][column]={
-                x: (column * (brick.space_left +brick.Brick_Width)+brick.space_left+brick.margin_left)/.5,
-                y: (rows * (brick.space_top + brick.Brick_Height) + brick.space_top +brick.margin_top)/.5,
+                x: (column * (brick.space_left +brick.Brick_Width)+brick.space_left+brick.margin_left),
+                y: (rows * (brick.space_top + brick.Brick_Height) + brick.space_top +brick.margin_top),
                 status: 1
             }
         }
@@ -191,8 +192,7 @@ function playAgain(){
     ctx.font = '40pt Kremlin Pro Web';
     ctx.fillStyle = 'red';
     ctx.fillText('Play Again', 1140,785);
-   document.addEventListener("click", resetBall);
-
+    document.addEventListener("click", resetBall());
 
 }
 
