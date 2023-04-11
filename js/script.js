@@ -112,19 +112,49 @@ function bricksCollision() {
                         }
                         ball.dy = -ball.dy;
                         if(score==brick.num_row*brick.num_column*10){
+                            // lvlup=true;
                             Level++;
                             brick.num_row+=1;
                             brick.num_column+=1;
                             brick.margin_left-=180;
                             create_Bricks();
-                            resetBall();
-                            restPaddle();
+                            // levelup_div.style.display='block';
+                            // continue_img.addEventListener('click',hide_levelup)
+                            // continue_img.addEventListener('click',levelUp)
                         }
                     }
             }
         }
     }
 }
+// levelup_div=document.getElementById('LevelUp');
+// continue_img=document.getElementById('continue');
+
+// win_img=document.getElementById('win');
+// // let lvlup =false;
+// function hide_levelup(){
+//     continue_img.hidden = true;
+//     win_img.hidden = true;
+//     resetBall();
+//     restPaddle();
+// }
+// function levelUp(){
+//     Level++;
+//     brick.num_row+=1;
+//     brick.num_column+=1;
+//     brick.margin_left-=180;
+//     create_Bricks();
+//     StopBall();
+
+// }
+//stop the Ball
+function StopBall(){                           
+    ball.x = canvas.width/2;
+    ball.y = paddleY - BALL_RADIUS;
+    speed = 0,
+    ball.dx = ballSpeed *(Math.random()*2 -1);
+    ball.dy = -ballSpeed;
+} 
 
 //Game Status Bar
 let score =0;
@@ -237,14 +267,7 @@ function moveBall(){
     dy = -3;
     
 }
-function stopBall(){
-     ball.x = canvas.width/2;
-    ball.y = paddleY - BALL_RADIUS;
-    speed = 0,
-    ball.dx = ballSpeed *(Math.random()*2 -1);
-    ball.dy = -ballSpeed;
-    
-}
+
 ////////Ball and Wall Collision detection
 function ballWallCollision(){
     if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0 ){
@@ -272,6 +295,7 @@ function resetBall(){
     ball.dx = ballSpeed *(Math.random()*2 -1);
     ball.dy = -ballSpeed;
 } 
+
 //rest the paddle
 
 function restPaddle(){
@@ -336,6 +360,9 @@ function hide() {
     if(!gameover){
         requestAnimationFrame(run);
     }
+    
+
+    
 
 }
 

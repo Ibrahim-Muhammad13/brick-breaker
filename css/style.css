@@ -48,7 +48,7 @@ canvas{
     display: none;
     opacity: 50%;
 } */
-.game-over{
+.para{
     position: absolute;
     top: 20vh;
     margin-left: 10vh;
@@ -79,4 +79,25 @@ canvas{
     height: 30vh;
     width: 30vh;  
     border-radius: 100%;
+}
+#continue{
+    position: absolute;
+    top: 60vh;
+    margin-left: 35vh;
+    height: 10vh;
+    width: 10vh;  
+    border-radius: 100%;
+}
+#LevelUp{
+    position: absolute;
+    height: 100vh;
+      width: 80vh;
+    display: none;
+}
+#win{
+    top: 10vh;
+    position: absolute;
+    height: 40vh;
+      width: 80vh;
+      margin-left: 30;
 }
