@@ -41,7 +41,7 @@ const ball = {
     x : canvasWidth/2,
     y : paddleY - BALL_RADIUS,
     radius : BALL_RADIUS,
-    dx : ballSpeed*(Math.random()*2 -1),
+    dx : ballSpeed*(Math.random()*2-1),
     dy : -ballSpeed
     
 }
@@ -62,12 +62,12 @@ function drawBall(){
 
 //bricks Shape
 const brick={
-    num_row : 1,
-    num_column : 1,
-    Brick_Width :300,
-    Brick_Height :40,
-    space_left :5,
-    space_top : 5,
+    num_row : 2,
+    num_column : 2,
+    Brick_Width :200,
+    Brick_Height :30,
+    space_left :10,
+    space_top : 10,
     margin_top :200 ,
     margin_left :850 ,
   //   color :"#0095DD"
@@ -106,7 +106,7 @@ function draw_Bricks(){
         }
     }   
 }
-
+let lvelScore=0;
 // Bricks collision
 function bricksCollision() {
     for(let rows = 0 ; rows < brick.num_row ; rows++){
@@ -127,27 +127,29 @@ function bricksCollision() {
 
                         brickSfx.play()
                         ball.dy = -ball.dy;
-                        if(score==brick.num_row*brick.num_column*10){
-                             
-                             
-                            // if(level<2){
-                            //     console.log("22222222");
+                        
+                        if(score-lvelScore==brick.num_row*brick.num_column*10){
                                 Level++;
-                             winSound.play()
+                                ballSpeed+=3
+                                brick.margin_left-=200;
+                                lvelScore=score;
+                                winSound.play()
+                                resetBall();
+                                restPaddle();
+                            if(Level==4){
                              lvlup=true;
                             levelup_div.style.display='block';
                             continue_img.addEventListener('click',hide_levelup)
-                            //continue_img.addEventListener('click',run)
                             continue_img.addEventListener('click',function(){
                                 location.reload();
                             });
-                            
+                            }
                             brick.num_row+=1;
                              brick.num_column+=1;
                              create_Bricks();
-
+                            
                         }
-                  //  }
+                
                     }
                 }
             }
@@ -177,9 +179,8 @@ win_img=document.getElementById('win');
 function StopBall(){                           
     ball.x = canvas.width/2;
     ball.y = paddleY - BALL_RADIUS;
-    speed = 0,
-    ball.dx = ballSpeed *(Math.random()*2 -1);
-    ball.dy = -ballSpeed;
+    // ball.dx = ballSpeed *(Math.random()*2 -1);
+    // ball.dy = -ballSpeed;
 } 
 
 //Game Status Bar
@@ -319,9 +320,8 @@ function ballWallCollision(){
 function resetBall(){                           
     ball.x = canvas.width/2;
     ball.y = paddleY - BALL_RADIUS;
-    speed = 4,
-    ball.dx = ballSpeed *(Math.random()*2 -1);
-    ball.dy = -ballSpeed;
+    // ball.dx = ballSpeed *(Math.random()*2 -1);
+    // ball.dy = -ballSpeed;
 } 
 
 //rest the paddle
