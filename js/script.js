@@ -14,6 +14,7 @@ let paddleX = canvasWidth/2 - paddleWidth/2;
 let paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
 let paddleDX=20;
 
+
 //Sound effects
 let brickSfx = new Audio();
 brickSfx.src = "sounds/paddel.m4a"
@@ -123,6 +124,7 @@ function bricksCollision() {
                             score+=scoreIncrement;
                             b.status = 0;
                         }
+
                         brickSfx.play()
                         ball.dy = -ball.dy;
                         if(score==brick.num_row*brick.num_column*10){
@@ -130,6 +132,7 @@ function bricksCollision() {
                             winSound.play()
                             brick.num_row+=1;
                             brick.num_column+=1;
+
                             create_Bricks();
                             resetBall();
                             restPaddle();
@@ -300,12 +303,15 @@ paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
 
 function paddleBallCollision(){
     if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&ball.y<paddleY+paddleHeight&&ball.y>paddleY){
+
        paddelSfx.play();
        let point = ball.x-(paddleX+paddleWidth/2);
        point = point/(paddleWidth/2);
        let angle = point*Math.PI/3;
        ball.dx = ballSpeed*Math.sin(angle);
+
        ball.dy= -ballSpeed*Math.cos(angle); 
+
         // ball.dx = -ballSpeed;
         // ball.dy= -ball.dy; 
     }
@@ -329,7 +335,14 @@ function mouseMoveHandler(e) {
   
 
 //keep this function at the bottom
-function run(){
+
+start_img=document.getElementById('start');
+start_img.addEventListener('click',hide)
+start_img.addEventListener('click',run)
+function hide() {
+    start_img.hidden = true;
+ }
+ function run(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     Score();
     level();
@@ -346,6 +359,7 @@ function run(){
     if(!gameover){
         requestAnimationFrame(run);
     }
+
 }
 
-run();
+//run();
