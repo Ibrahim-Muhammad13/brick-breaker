@@ -13,6 +13,20 @@ const paddleMarginBottom=100;
 let paddleX = canvasWidth/2 - paddleWidth/2;
 let paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
 let paddleDX=20;
+
+
+//Sound effects
+let brickSfx = new Audio();
+brickSfx.src = "sounds/paddel.m4a"
+let paddelSfx = new Audio();
+paddelSfx.src = "sounds/brick.wav"
+let failSound = new Audio();
+failSound.src = "sounds/fail.wav"
+let winSound = new Audio();
+winSound.src = "sounds/win.wav"
+let wallSfx = new Audio();
+wallSfx.src = "sounds/brick.wav"
+
 //draw the paddle
 function drawPaddle(){
     ctx.beginPath();
@@ -48,8 +62,8 @@ function drawBall(){
 
 //bricks Shape
 const brick={
-    num_row : 2,
-    num_column : 3,
+    num_row : 1,
+    num_column : 1,
     Brick_Width :300,
     Brick_Height :40,
     space_left :5,
@@ -110,34 +124,47 @@ function bricksCollision() {
                             score+=scoreIncrement;
                             b.status = 0;
                         }
+
+                        brickSfx.play()
                         ball.dy = -ball.dy;
                         if(score==brick.num_row*brick.num_column*10){
-                            // lvlup=true;
-                            Level++;
+                             
+                             
+                            // if(level<2){
+                            //     console.log("22222222");
+                                Level++;
+                             winSound.play()
+                             lvlup=true;
+                            levelup_div.style.display='block';
+                            continue_img.addEventListener('click',hide_levelup)
+                            //continue_img.addEventListener('click',run)
+                            continue_img.addEventListener('click',function(){
+                                location.reload();
+                            });
+                            
                             brick.num_row+=1;
-                            brick.num_column+=1;
-                            brick.margin_left-=180;
-                            create_Bricks();
-                            // levelup_div.style.display='block';
-                            // continue_img.addEventListener('click',hide_levelup)
-                            // continue_img.addEventListener('click',levelUp)
+                             brick.num_column+=1;
+                             create_Bricks();
+
                         }
+                  //  }
                     }
+                }
             }
         }
     }
-}
-// levelup_div=document.getElementById('LevelUp');
-// continue_img=document.getElementById('continue');
 
-// win_img=document.getElementById('win');
-// // let lvlup =false;
-// function hide_levelup(){
-//     continue_img.hidden = true;
-//     win_img.hidden = true;
+ levelup_div=document.getElementById('LevelUp');
+continue_img=document.getElementById('continue');
+
+win_img=document.getElementById('win');
+  let lvlup =false;
+ function hide_levelup(){
+     continue_img.hidden = true;
+     win_img.hidden = true;
 //     resetBall();
 //     restPaddle();
-// }
+ }
 // function levelUp(){
 //     Level++;
 //     brick.num_row+=1;
@@ -145,8 +172,7 @@ function bricksCollision() {
 //     brick.margin_left-=180;
 //     create_Bricks();
 //     StopBall();
-
-// }
+//  }
 //stop the Ball
 function StopBall(){                           
     ball.x = canvas.width/2;
@@ -272,6 +298,7 @@ function moveBall(){
 function ballWallCollision(){
     if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0 ){
         ball.dx = - ball.dx;
+        wallSfx.play()
     }
     if(ball.y - ball.radius < 0 ){
         ball.dy = -ball.dy;
@@ -280,6 +307,7 @@ function ballWallCollision(){
     if(ball.y + ball.radius > canvas.height){
         //dy = -dy;
     life--;
+    failSound.play();
     live();
         resetBall();
         restPaddle();
@@ -308,11 +336,15 @@ paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
 
 function paddleBallCollision(){
     if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&ball.y<paddleY+paddleHeight&&ball.y>paddleY){
+
+       paddelSfx.play();
        let point = ball.x-(paddleX+paddleWidth/2);
        point = point/(paddleWidth/2);
        let angle = point*Math.PI/3;
        ball.dx = ballSpeed*Math.sin(angle);
-        ball.dy= -ballSpeed*Math.cos(angle); 
+
+       ball.dy= -ballSpeed*Math.cos(angle); 
+
         // ball.dx = -ballSpeed;
         // ball.dy= -ball.dy; 
     }
@@ -357,7 +389,7 @@ function hide() {
     bricksCollision()
     gameOver();
     paddleBallCollision();
-    if(!gameover){
+    if(!gameover && !lvlup){
         requestAnimationFrame(run);
     }
     
