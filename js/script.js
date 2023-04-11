@@ -62,8 +62,8 @@ function drawBall(){
 
 //bricks Shape
 const brick={
-    num_row : 2,
-    num_column : 3,
+    num_row : 1,
+    num_column : 1,
     Brick_Width :300,
     Brick_Height :40,
     space_left :5,
@@ -128,20 +128,59 @@ function bricksCollision() {
                         brickSfx.play()
                         ball.dy = -ball.dy;
                         if(score==brick.num_row*brick.num_column*10){
-                            Level++;
-                            winSound.play()
+                             
+                             
+                            // if(level<2){
+                            //     console.log("22222222");
+                                Level++;
+                             winSound.play()
+                             lvlup=true;
+                            levelup_div.style.display='block';
+                            continue_img.addEventListener('click',hide_levelup)
+                            //continue_img.addEventListener('click',run)
+                            continue_img.addEventListener('click',function(){
+                                location.reload();
+                            });
+                            
                             brick.num_row+=1;
-                            brick.num_column+=1;
+                             brick.num_column+=1;
+                             create_Bricks();
 
-                            create_Bricks();
-                            resetBall();
-                            restPaddle();
                         }
+                  //  }
                     }
+                }
             }
         }
     }
-}
+
+ levelup_div=document.getElementById('LevelUp');
+continue_img=document.getElementById('continue');
+
+win_img=document.getElementById('win');
+  let lvlup =false;
+ function hide_levelup(){
+     continue_img.hidden = true;
+     win_img.hidden = true;
+//     resetBall();
+//     restPaddle();
+ }
+// function levelUp(){
+//     Level++;
+//     brick.num_row+=1;
+//     brick.num_column+=1;
+//     brick.margin_left-=180;
+//     create_Bricks();
+//     StopBall();
+//  }
+//stop the Ball
+function StopBall(){                           
+    ball.x = canvas.width/2;
+    ball.y = paddleY - BALL_RADIUS;
+    speed = 0,
+    ball.dx = ballSpeed *(Math.random()*2 -1);
+    ball.dy = -ballSpeed;
+} 
 
 //Game Status Bar
 let score =0;
@@ -254,14 +293,7 @@ function moveBall(){
     dy = -3;
     
 }
-function stopBall(){
-     ball.x = canvas.width/2;
-    ball.y = paddleY - BALL_RADIUS;
-    speed = 0,
-    ball.dx = ballSpeed *(Math.random()*2 -1);
-    ball.dy = -ballSpeed;
-    
-}
+
 ////////Ball and Wall Collision detection
 function ballWallCollision(){
     if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0 ){
@@ -291,6 +323,7 @@ function resetBall(){
     ball.dx = ballSpeed *(Math.random()*2 -1);
     ball.dy = -ballSpeed;
 } 
+
 //rest the paddle
 
 function restPaddle(){
@@ -356,9 +389,12 @@ function hide() {
     bricksCollision()
     gameOver();
     paddleBallCollision();
-    if(!gameover){
+    if(!gameover && !lvlup){
         requestAnimationFrame(run);
     }
+    
+
+    
 
 }
 
