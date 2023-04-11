@@ -115,6 +115,7 @@ function bricksCollision() {
                             Level++;
                             brick.num_row+=1;
                             brick.num_column+=1;
+                            brick.margin_left-=180;
                             create_Bricks();
                             resetBall();
                             restPaddle();
@@ -311,7 +312,14 @@ function mouseMoveHandler(e) {
   
 
 //keep this function at the bottom
-function run(){
+
+start_img=document.getElementById('start');
+start_img.addEventListener('click',hide)
+start_img.addEventListener('click',run)
+function hide() {
+    start_img.hidden = true;
+ }
+ function run(){
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     Score();
     level();
@@ -328,6 +336,7 @@ function run(){
     if(!gameover){
         requestAnimationFrame(run);
     }
+
 }
 
-run();
+//run();
