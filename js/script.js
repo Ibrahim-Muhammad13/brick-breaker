@@ -13,6 +13,20 @@ const paddleMarginBottom=100;
 let paddleX = canvasWidth/2 - paddleWidth/2;
 let paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
 let paddleDX=20;
+
+
+//Sound effects
+let brickSfx = new Audio();
+brickSfx.src = "sounds/paddel.m4a"
+let paddelSfx = new Audio();
+paddelSfx.src = "sounds/brick.wav"
+let failSound = new Audio();
+failSound.src = "sounds/fail.wav"
+let winSound = new Audio();
+winSound.src = "sounds/win.wav"
+let wallSfx = new Audio();
+wallSfx.src = "sounds/brick.wav"
+
 //draw the paddle
 function drawPaddle(){
     ctx.beginPath();
@@ -110,12 +124,15 @@ function bricksCollision() {
                             score+=scoreIncrement;
                             b.status = 0;
                         }
+
+                        brickSfx.play()
                         ball.dy = -ball.dy;
                         if(score==brick.num_row*brick.num_column*10){
                             Level++;
+                            winSound.play()
                             brick.num_row+=1;
                             brick.num_column+=1;
-                            brick.margin_left-=180;
+
                             create_Bricks();
                             resetBall();
                             restPaddle();
@@ -249,6 +266,7 @@ function stopBall(){
 function ballWallCollision(){
     if(ball.x + ball.radius > canvas.width || ball.x - ball.radius < 0 ){
         ball.dx = - ball.dx;
+        wallSfx.play()
     }
     if(ball.y - ball.radius < 0 ){
         ball.dy = -ball.dy;
@@ -257,6 +275,7 @@ function ballWallCollision(){
     if(ball.y + ball.radius > canvas.height){
         //dy = -dy;
     life--;
+    failSound.play();
     live();
         resetBall();
         restPaddle();
@@ -284,11 +303,15 @@ paddleY = canvasHeight-paddleHeight-paddleMarginBottom;
 
 function paddleBallCollision(){
     if(ball.x<paddleX+paddleWidth&&ball.x>paddleX &&ball.y<paddleY+paddleHeight&&ball.y>paddleY){
+
+       paddelSfx.play();
        let point = ball.x-(paddleX+paddleWidth/2);
        point = point/(paddleWidth/2);
        let angle = point*Math.PI/3;
        ball.dx = ballSpeed*Math.sin(angle);
-        ball.dy= -ballSpeed*Math.cos(angle); 
+
+       ball.dy= -ballSpeed*Math.cos(angle); 
+
         // ball.dx = -ballSpeed;
         // ball.dy= -ball.dy; 
     }
